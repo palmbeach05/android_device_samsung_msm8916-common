@@ -1,13 +1,23 @@
-/boot          emmc      /dev/block/bootdevice/by-name/boot
-/recovery      emmc      /dev/block/bootdevice/by-name/recovery
-/data          ext4      /dev/block/bootdevice/by-name/userdata      length=-16384
+/boot          emmc      /dev/block/bootdevice/by-name/boot	     
+/recovery      emmc      /dev/block/bootdevice/by-name/recovery	     flags=backup=1
+/data          ext4      /dev/block/bootdevice/by-name/userdata      flags=encryptable=footer;length=-16384
 /cache         ext4      /dev/block/bootdevice/by-name/cache
 /system        ext4      /dev/block/bootdevice/by-name/system
+/system_image  emmc      /dev/block/bootdevice/by-name/system
+/storage       ext4	 /data/media/0				     flags=display="Internal Storage";usermrf;backup=1;fsflags="bind";removable
 /misc          emmc      /dev/block/bootdevice/by-name/fota
+/preload       ext4	 /dev/block/bootdevice/by-name/hidden	     flags=display="Hidden";backup=1;wipeingui
+/persist       ext4	 /dev/block/bootdevice/by-name/persist	     flags=display="Persist";backup=1;wipeingui
+/persdata      ext4	 /dev/block/bootdevice/by-name/persdata	     flags=display="Persdata";backup=1;wipeingui
 /efs1          emmc      /dev/block/bootdevice/by-name/efs           flags=backup=1;display=EFS
-/efs2          emmc      /dev/block/bootdevice/by-name/modemst1      flags=backup=1;subpartitionof=/efs1
-/efs3          emmc      /dev/block/bootdevice/by-name/modemst2      flags=backup=1;subpartitionof=/efs1
-/modem         vfat      /dev/block/bootdevice/by-name/modem         flags=backup=1;display="Modem"
-/firmware      vfat      /dev/block/bootdevice/by-name/apnhlos       flags=backup=1;display="Firmware"
-/external_sd   auto      /dev/block/mmcblk1p1 /dev/block/mmcblk1              flags=display="Micro SDcard";storage;wipeingui;removable
-/usb-otg         auto       /dev/block/sda1         /dev/block/sda       flags=display="USB-OTG";storage;wipeingui;removable
+/modemst1      emmc      /dev/block/bootdevice/by-name/modemst1      flags=display="IMEI 1";backup=1;subpartitionof=/efs1
+/modemst2      emmc      /dev/block/bootdevice/by-name/modemst2      flags=display="IMEI 2";backup=1;subpartitionof=/efs1
+/modem         auto      /dev/block/bootdevice/by-name/modem         flags=backup=1;display="Modem";wipeingui
+/modem         auto      /dev/block/bootdevice/by-name/apnhlos       flags=backup=1;display="Apnhlos";wipeingui
+/qhee	       emmc	 /dev/block/bootdevice/by-name/qhee	     flags=display="Qhee";backup=1
+/qsee	       emmc      /dev/block/bootdevice/by-name/qsee	     flags=display="Qsee";backup=1
+/rpm	       emmc      /dev/block/bootdevice/by-name/rpm	     flags=display="Rpm";backup=1
+/sec	       emmc      /dev/block/bootdevice/by-name/sec	     flags=display="Sec";backup=1
+/sdcard1       auto      /dev/block/mmcblk1p1 /dev/block/mmcblk1     flags=display="Micro SD card";storage;wipeingui;removable
+/usb-otg       auto      /dev/block/sda1         /dev/block/sda      flags=display="USB-OTG";storage;wipeingui;removable
+
