@@ -47,6 +47,10 @@ BOARD_CHARGER_ENABLE_SUSPEND    := true
 BOARD_CHARGER_SHOW_PERCENTAGE   := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
+# Custom Security Patch
+# TWRP Defaults
+PLATFORM_SECURITY_PATCH := 2099-12-31
+
 # Display
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
@@ -63,14 +67,8 @@ TARGET_CRYPTFS_HW_PATH := $(COMMON_PATH)/cryptfs_hw
 TARGET_LEGACY_HW_DISK_ENCRYPTION := true
 TARGET_HW_KEYMASTER_V03 := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-
-ifeq ($(RECOVERY_VARIANT),twrp)
-	TARGET_HW_DISK_ENCRYPTION := false
-	TARGET_SWV8_DISK_ENCRYPTION := false
-else
-	TARGET_HW_DISK_ENCRYPTION := true
-	TARGET_SWV8_DISK_ENCRYPTION := true
-endif
+TARGET_HW_DISK_ENCRYPTION := false
+TARGET_SWV8_DISK_ENCRYPTION := false
 
 # Filesystems
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
@@ -84,10 +82,6 @@ BOARD_ROOT_EXTRA_SYMLINKS := /data/tombstones:/tombstones
 
 # HIDL
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
-
-# Init
-TARGET_INIT_VENDOR_LIB := libinit_msm8916
-TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8916
 
 # Kernel
 BOARD_KERNEL_CMDLINE += \
@@ -114,6 +108,7 @@ TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
 TARGET_KERNEL_SELINUX_LOG_CONFIG := selinux_log_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8916
 TARGET_CUSTOM_DTBTOOL := dtbToolLineage
+TARGET_OTA_ASSERT_DEVICE := j5lte,J5ltexx,j5ltechn,j5nlte,j5nltexx,j53gxx,j5xnlte,j5xlte,j5xltecmcc
 
 # Kernel - Toolchain
 ifneq ($(wildcard $(BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-7.2/bin),)
