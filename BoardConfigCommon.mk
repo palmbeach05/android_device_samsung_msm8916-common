@@ -21,13 +21,21 @@ TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
 # Inherit from common
 -include device/samsung/qcom-common/BoardConfigCommon.mk
 
-# Architecture/platform
+# OEM Info
 BOARD_VENDOR := samsung
+
+# Bootloader
+BOARD_PROVIDES_BOOTLOADER_MESSAGE := false
+TARGET_BOOTLOADER_BOARD_NAME := MSM8916
+
+# Platform
+TARGET_BOARD_PLATFORM := $(shell echo $(TARGET_BOOTLOADER_BOARD_NAME) | tr  '[:upper:]' '[:lower:]')
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno306
+
+# Architecture
 FORCE_32_BIT := true
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv8-a
-TARGET_BOARD_PLATFORM := msm8916
-TARGET_BOARD_PLATFORM_GPU       := qcom-adreno306
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_CORTEX_A53 := true
@@ -38,17 +46,12 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 # Binder API version
 TARGET_USES_64_BIT_BINDER := true
 
-# Bootloader
-BOARD_PROVIDES_BOOTLOADER_MESSAGE := false
-TARGET_BOOTLOADER_BOARD_NAME := MSM8916
-
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND    := true
 BOARD_CHARGER_SHOW_PERCENTAGE   := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
 # Custom Security Patch
-# TWRP Defaults
 PLATFORM_SECURITY_PATCH := 2099-12-31
 
 # Display
@@ -69,6 +72,7 @@ TARGET_HW_KEYMASTER_V03 := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 TARGET_HW_DISK_ENCRYPTION := false
 TARGET_SWV8_DISK_ENCRYPTION := false
+BOARD_USES_QCOM_DECRYPTION := true
 
 # Filesystems
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
@@ -108,13 +112,18 @@ TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
 TARGET_KERNEL_SELINUX_LOG_CONFIG := selinux_log_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8916
 TARGET_CUSTOM_DTBTOOL := dtbToolLineage
-TARGET_OTA_ASSERT_DEVICE := j5lte,J5ltexx,j5ltechn,j5nlte,j5nltexx,j53gxx,j5xnlte,j5xlte,j5xltecmcc
 
 # Kernel - Toolchain
 ifneq ($(wildcard $(BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-7.2/bin),)
     KERNEL_TOOLCHAIN := $(BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-7.2/bin
     KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 endif
+
+# Legacy BLOB Support
+TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
+    /system/bin/mediaserver=22 \
+    /system/bin/mm-qcamera-daemon=22 \
+    /system/vendor/bin/hw/rild=27
 
 # Malloc implementation
 MALLOC_SVELTE := true
@@ -128,12 +137,6 @@ BOARD_BOOTIMAGE_PARTITION_SIZE      := 13631488
 BOARD_RECOVERYIMAGE_PARTITION_SIZE  := 15728640
 BOARD_CACHEIMAGE_PARTITION_SIZE     := 314572800
 BOARD_FLASH_BLOCK_SIZE              := 131072
-
-# Legacy BLOB Support
-TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
-    /system/bin/mediaserver=22 \
-    /system/bin/mm-qcamera-daemon=22 \
-    /system/vendor/bin/hw/rild=27
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom

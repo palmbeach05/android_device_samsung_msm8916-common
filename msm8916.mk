@@ -363,6 +363,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.power@1.2-service-qti
 
+# qcom standard decryption for TWRP
+PRODUCT_PACKAGES += \
+    qcom_decrypt
+    
 # Radio
 PRODUCT_PACKAGES += \
     librmnetctl \
@@ -456,10 +460,6 @@ PRODUCT_PACKAGES += \
 # USB HAL
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic
-
-# Vendor security patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2017-09-01
 
 # Vibrator
 PRODUCT_PACKAGES += \
