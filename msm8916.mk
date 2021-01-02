@@ -172,10 +172,6 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes \
     libebtc
-
-# Encryption
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.cryptfshw@1.0-service-qti.qsee
     
 # FM
 PRODUCT_PACKAGES += \
@@ -362,10 +358,6 @@ PRODUCT_COPY_FILES += \
 # Power HAL
 PRODUCT_PACKAGES += \
     android.hardware.power@1.2-service-qti
-
-# qcom standard decryption for TWRP
-PRODUCT_PACKAGES += \
-    qcom_decrypt
     
 # Radio
 PRODUCT_PACKAGES += \
@@ -452,10 +444,6 @@ PRODUCT_PACKAGES += \
 # Time services
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true
-
-# Tzdata
-PRODUCT_PACKAGES += \
-    tzdata_twrp
     
 # USB HAL
 PRODUCT_PACKAGES += \
