@@ -181,6 +181,8 @@ TW_EXCLUDE_SUPERSU := true
 TW_OVERRIDE_SYSTEM_PROPS := "ro.build.fingerprint;ro.build.version.incremental"
 TW_USE_TOOLBOX := true
 TW_EXCLUDE_TWRPAPP := true
+TW_EXCLUDE_NANO := true
+TW_EXCLUDE_BASH := true
 
 ifeq ($(RECOVERY_VARIANT),twrp)
 	BOARD_GLOBAL_CFLAGS += -DTW_USE_MINUI_CUSTOM_FONTS
