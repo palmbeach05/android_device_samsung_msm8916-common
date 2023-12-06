@@ -11,3 +11,6 @@ allow system_app time_daemon:unix_stream_socket connectto;
 #allow system_app storaged:binder { call };
 #allow system_app system_suspend:binder { call };
 allow system_server app_efs_file:dir search;
+allow system_app init:binder call;
+allow system_app wificond:binder call;
+allow system_app apk_data_file:dir write;

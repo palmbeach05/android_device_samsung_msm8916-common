@@ -24,7 +24,6 @@ TARGET_SPECIFIC_HEADER_PATH += $(COMMON_PATH)/include
 BUILD_BROKEN_DUP_RULES := true
 
 # Architecture/platform
-BOARD_VENDOR := samsung
 FORCE_32_BIT := true
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv8-a
@@ -44,8 +43,6 @@ BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
 AUDIO_CONFIG_PATH := hardware/qcom-caf/msm8916/audio/configs
-AUDIO_FEATURE_SAMSUNG_DUAL_SIM := true
-AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := false
 AUDIO_FEATURE_ENABLED_INCALL_MUSIC := true
 BOARD_USES_ALSA_AUDIO := true
@@ -76,11 +73,7 @@ TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_PROVIDES_CAMERA_HAL := true
 TARGET_USE_VENDOR_CAMERA_EXT := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
-
-# Charger
-BOARD_CHARGER_ENABLE_SUSPEND    := true
-BOARD_CHARGER_SHOW_PERCENTAGE   := true
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
+TARGET_USES_NON_TREBLE_CAMERA := true
 
 # Display
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
@@ -118,13 +111,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_ROOT_EXTRA_FOLDERS := firmware firmware-modem persist efs
 BOARD_ROOT_EXTRA_SYMLINKS := /data/tombstones:/tombstones
 
-# FM
-ifeq ($(TARGET_PROVIDES_FM_RADIO),true)
-    AUDIO_FEATURE_ENABLED_FM := true
-    BOARD_HAVE_QCOM_FM := true
-    AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
-endif  
-
 # GPS
 TARGET_NO_RPC := true
 
@@ -139,7 +125,9 @@ ifeq ($(CONFIG_GTE_COMMON_SEPOLICY),true)
         user_debug=23 \
         msm_rtb.filter=0x3F \
         ehci-hcd.park=3 \
-        androidboot.bootdevice=7824900.sdhci
+        androidboot.bootdevice=7824900.sdhci \
+        zcache.enabled=1 \
+        zcache.compressor=lz4
 else
     BOARD_KERNEL_CMDLINE += \
         androidboot.hardware=qcom \
@@ -147,7 +135,9 @@ else
         msm_rtb.filter=0x3F \
         ehci-hcd.park=3 \
         androidboot.bootdevice=7824900.sdhci \
-        androidboot.selinux=permissive
+        androidboot.selinux=permissive \
+        zcache.enabled=1 \
+        zcache.compressor=lz4
 endif
 
 BOARD_CUSTOM_BOOTIMG := true
@@ -257,8 +247,6 @@ include $(COMMON_PATH)/sepolicy/sepolicy.mk
 # Shims
 TARGET_LD_SHIM_LIBS := \
     /system/lib/libmmjpeg_interface.so|libboringssl-compat.so \
-    /system/lib/libsec-ril.so|libshim_secril.so \
-    /system/lib/libsec-ril-dsds.so|libshim_secril.so \
     /system/lib/hw/camera.vendor.msm8916.so|libcamera_shim.so \
     /system/vendor/lib/libizat_core.so|libshim_gps.so \
     /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so \

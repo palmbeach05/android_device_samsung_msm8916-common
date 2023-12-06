@@ -1,1 +1,2 @@
 allow mediaprovider mnt_media_rw_file:dir getattr;
+allow mediaprovider rootfs:file { getattr setattr };

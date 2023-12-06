@@ -21,3 +21,7 @@ allow init system_file:file mounton;
 allow init vendor_file:file execute_no_trans;
 allow init sysfs_livedisplay_tuneable:file { read write };
 allow init sysfs_livedisplay_tuneable:file open;
+allow init sysfs_graphics:file write;
+allow init sysfs_graphics:file open;
+allow init sysfs_graphics:file read;
+allow init hal_light_hwservice:hwservice_manager add;
