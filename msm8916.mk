@@ -29,6 +29,13 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
+# Proprieties
+-include $(LOCAL_PATH)/system_prop.mk
+
+# Screen density
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
+
 # Assistant
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opa.eligible_device=true
@@ -380,6 +387,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    init.target.rc \
     init.carrier.rc \
     init.class_main.sh \
     init.link_ril_db.sh \
@@ -497,3 +505,6 @@ PRODUCT_PACKAGES += \
 # ZRAM - Size in MB
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.zram.size=128
+
+# Inhert dalvik heap values from aosp
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
